@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Matija Cerovac | Portfolio (Persistent Background)</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Load background early so canvas starts quickly -->
+  <script defer src="background.js"></script>
+  <!-- Main SPA + interaction script -->
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Inline quick-theme applicator so theme is applied before paint (avoids flash) -->
+  <script>
+    (function(){
+      const theme = localStorage.getItem('theme') || 'dark';
+      // apply class on body as early as possible
+      if (theme === 'light') document.body.classList.add('lightmode');
+      else document.body.classList.add('darkmode');
+    })();
+  </script>
+
+  <!-- Persistent animated background -->
+  <div id="background" aria-hidden="true">
+    <canvas id="bgCanvas"></canvas>
+  </div>
+
+  <!-- Header/navigation (stays visible, does not reload) -->
+  <header>
+    <nav>
+      <a href="home.html" data-link>Home</a>
+      <a href="about.html" data-link>About Me</a>
+      <a href="games.html" data-link>Games</a>
+      <a href="contact.html" data-link>Contact</a>
+      <button id="mode-toggle" aria-label="Toggle theme">🌙</button>
+    </nav>
+  </header>
+
+  <!-- Container where page fragments are loaded -->
+  <main id="content" role="main"></main>
+</body>
+</html>

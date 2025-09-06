@@ -1,0 +1,352 @@
+:root {
+  --accent: #00bfff;
+  --bg: #111;
+  --text: #eee;
+  --card-bg: #222;
+  --section-bg: #181818;
+  --hover-bg: #008ccc;
+}
+
+/* ===== RESET BASICS ===== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* ===== PERSISTENT BACKGROUND ===== */
+#background {
+  position: fixed;
+  inset: 0;
+  z-index: -1; /* behind everything */
+  overflow: hidden;
+  pointer-events: none;
+}
+#bgCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== BODY CONTENT ===== */
+body {
+  color: var(--text);
+  background: var(--bg);
+  cursor: default;
+}
+
+/* ===== HEADER & NAV ===== */
+header {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  background: rgba(0,0,0,0.15);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 12px 8px;
+}
+
+nav a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.25s ease; /* smooth hover */
+}
+nav a:hover {
+  color: var(--accent);
+  background: rgba(0,191,255,0.08);
+  transform: scale(1.05);
+}
+
+#mode-toggle {
+  margin-left: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+#mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* ===== MAIN CONTENT ===== */
+main#content {
+  position: relative;
+  z-index: 5;
+  padding: 24px;
+  min-height: calc(100vh - 80px);
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  background: var(--accent);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.25s ease;
+}
+.btn:hover {
+  transform: scale(1.08);
+  background: var(--hover-bg);
+  box-shadow: 0 0 12px rgba(0,191,255,0.5);
+}
+
+/* ===== GAMES LIST ===== */
+.games-list {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  padding: 18px;
+  margin-top: 12px;
+  background: transparent; /* make background transparent */
+  flex-wrap: wrap;
+}
+
+.game-card {
+  width: 210px;
+  background: var(--card-bg);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+.game-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+.game-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(0,191,255,0.3);
+}
+
+/* shrink other cards when one is hovered */
+.games-list:has(.game-card:hover) .game-card:not(:hover) {
+  transform: scale(0.88);
+  opacity: 0.95;
+}
+
+/* ===== SPACING BETWEEN CARDS & CONTRIBUTIONS ===== */
+.game + .contrib {
+  margin-top: 48px; /* increased spacing between game cards and contributions dropdown */
+}
+
+/* ===== GAME SECTION ===== */
+.game {
+  margin: 36px auto;
+  max-width: 900px;
+  color: var(--text);
+}
+
+/* ===== MEDIA ROW ===== */
+.media-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+}
+.media-row img, .media-row video {
+  max-height: 360px;
+  border-radius: 8px;
+}
+
+/* ===== CONTRIBUTIONS ===== */
+.contrib {
+  margin-top: 14px;
+  margin-bottom: 14px;
+  background: var(--card-bg);
+  padding: 12px;
+  border-radius: 8px;
+}
+.contrib summary {
+  cursor: pointer;
+  color: var(--accent);
+}
+
+/* ===== MODAL ===== */
+body.modal-open {
+  overflow: hidden; /* lock scroll when modal is open */
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+}
+.modal .modal-content {
+  background: var(--card-bg);
+  padding: 18px;
+  border-radius: 10px;
+  max-width: 900px;
+  width: 92%;
+  color: var(--text);
+  text-align: center;
+}
+.modal .modal-content img, 
+.modal .modal-content video {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.modal .close {
+  float: right;
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.modal .close:hover {
+  color: var(--accent);
+}
+
+/* ===== ABOUT PAGE ===== */
+.about {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center; /* centered content */
+}
+.about .profile-pic {
+  border-radius: 50%;
+  margin-bottom: 20px; 
+}
+.about h2, .about h3 {
+  color: var(--accent);
+}
+.about ul {
+  text-align: left;
+  display: inline-block;
+  margin: 10px 0 30px 0;
+  padding: 0;
+  list-style-type: disc;
+}
+.about ul li {
+  margin: 5px 0;
+  padding: 5px 10px;
+  background: var(--card-bg);
+  border-radius: 5px;
+}
+
+/* ===== CONTACT PAGE ===== */
+.contact {
+  text-align: center;
+  padding: 40px 20px;
+}
+.contact-table {
+  margin: 0 auto 20px auto;
+  width: 50%;
+  background: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.contact-table th,
+.contact-table td {
+  padding: 10px;
+  color: var(--text);
+  text-align: left;
+}
+.contact-table th {
+  background: rgba(0,191,255,0.1);
+  width: 35%;
+}
+.contact-table td a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.contact-table td a:hover {
+  text-decoration: underline;
+}
+
+/* ===== CONTACT FORM ===== */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.contact-form label {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background: var(--card-bg);
+  color: var(--text);
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.contact-form button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+.contact-form button:hover {
+  background: var(--hover-bg);
+  transform: scale(1.05);
+}
+
+/* ===== LIGHTMODE ===== */
+body.lightmode {
+  --bg: #fff;
+  --text: #111;
+  --card-bg: #f6f6f6;
+  --section-bg: #eee;
+}
+
+/* ===== CUSTOM CURSOR ON DETAIL BUTTON ===== */
+.btn.detail-btn {
+  cursor: none; /* hide default cursor */
+  position: relative;
+}
+.btn.detail-btn::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: all 0.2s ease;
+}
+.btn.detail-btn:hover::after {
+  width: 30px;
+  height: 30px;
+  border-color: var(--hover-bg);
+}
